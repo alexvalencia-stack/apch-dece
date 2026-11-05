@@ -316,7 +316,7 @@
 
         width: 200mm;
 
-        height: 297mm;
+        min-height: 297mm;
 
         padding: 7mm 8mm 5mm 8mm;
 
@@ -682,15 +682,45 @@
 
 
 
-    .opt-line input[type="text"] {
+    textarea.campo-multilinea {
 
-        width: 50px;
+        display: block;
 
-        display: inline;
+        width: 100%;
 
         border: none;
 
-        border-bottom: none;
+        resize: none;
+
+        overflow: hidden;
+
+        field-sizing: content;
+
+        font-family: "Times New Roman", Times, serif;
+
+        font-size: 11px;
+
+        line-height: 12px;
+
+        background: transparent;
+
+        padding: 0;
+
+        margin: 0;
+
+        white-space: pre-wrap;
+
+        overflow-wrap: anywhere;
+
+    }
+
+
+
+    textarea.campo-multilinea:focus {
+
+        outline: none;
+
+        background: #fafff0;
 
     }
 
@@ -777,6 +807,9 @@
 
 
     @media print {
+        table.form tr {
+            break-inside: avoid;
+        }
 
 
 
@@ -812,7 +845,7 @@
 
             width: 200mm;
 
-            height: 297mm;
+            min-height: 297mm;
 
             margin: 0 auto;
 
@@ -825,6 +858,10 @@
             zoom: 1 !important;
 
             page-break-after: always;
+
+            box-decoration-break: clone;
+
+            -webkit-box-decoration-break: clone;
 
         }
 
@@ -1329,7 +1366,7 @@
 
             <td colspan="2">
 
-                <input type="text" name="q1_com">
+                <textarea class="campo-multilinea" name="q1_com" rows="1"></textarea>
 
             </td>
 
@@ -1359,7 +1396,7 @@
 
             <td colspan="2">
 
-                <input type="text" name="q2_com">
+                <textarea class="campo-multilinea" name="q2_com" rows="1"></textarea>
 
             </td>
 
@@ -1389,7 +1426,7 @@
 
             <td colspan="2">
 
-                <input type="text" name="q3_com">
+                <textarea class="campo-multilinea" name="q3_com" rows="1"></textarea>
 
             </td>
 
@@ -1419,7 +1456,7 @@
 
             <td colspan="2">
 
-                <input type="text" name="q4_com">
+                <textarea class="campo-multilinea" name="q4_com" rows="1"></textarea>
 
             </td>
 
@@ -1449,7 +1486,7 @@
 
             <td colspan="2">
 
-                <input type="text" name="q5_com">
+                <textarea class="campo-multilinea" name="q5_com" rows="1"></textarea>
 
             </td>
 
@@ -1479,7 +1516,7 @@
 
             <td colspan="2">
 
-                <input type="text" name="q6_com">
+                <textarea class="campo-multilinea" name="q6_com" rows="1"></textarea>
 
             </td>
 
@@ -1509,7 +1546,7 @@
 
             <td colspan="2">
 
-                <input type="text" name="q7_com">
+                <textarea class="campo-multilinea" name="q7_com" rows="1"></textarea>
 
             </td>
 
@@ -1539,7 +1576,7 @@
 
             <td colspan="2">
 
-                <input type="text" name="q8_com">
+                <textarea class="campo-multilinea" name="q8_com" rows="1"></textarea>
 
             </td>
 
@@ -1569,7 +1606,7 @@
 
             <td colspan="2">
 
-                <input type="text" name="q9_com">
+                <textarea class="campo-multilinea" name="q9_com" rows="1"></textarea>
 
             </td>
 
@@ -1599,7 +1636,7 @@
 
             <td colspan="2">
 
-                <input type="text" name="q10_com">
+                <textarea class="campo-multilinea" name="q10_com" rows="1"></textarea>
 
             </td>
 
@@ -1629,7 +1666,7 @@
 
             <td colspan="2">
 
-                <input type="text" name="q11_com">
+                <textarea class="campo-multilinea" name="q11_com" rows="1"></textarea>
 
             </td>
 
@@ -1659,7 +1696,7 @@
 
             <td colspan="2">
 
-                <input type="text" name="q12_com">
+                <textarea class="campo-multilinea" name="q12_com" rows="1"></textarea>
 
             </td>
 
@@ -1689,7 +1726,7 @@
 
             <td colspan="2">
 
-                <input type="text" name="q13_com">
+                <textarea class="campo-multilinea" name="q13_com" rows="1"></textarea>
 
             </td>
 
@@ -1719,7 +1756,7 @@
 
             <td colspan="2">
 
-                <input type="text" name="q14_com">
+                <textarea class="campo-multilinea" name="q14_com" rows="1"></textarea>
 
             </td>
 
@@ -1749,7 +1786,7 @@
 
             <td colspan="2">
 
-                <input type="text" name="q15_com">
+                <textarea class="campo-multilinea" name="q15_com" rows="1"></textarea>
 
             </td>
 
@@ -1779,7 +1816,7 @@
 
             <td colspan="2">
 
-                <input type="text" name="q16_com">
+                <textarea class="campo-multilinea" name="q16_com" rows="1"></textarea>
 
             </td>
 
@@ -1809,7 +1846,7 @@
 
             <td colspan="2">
 
-                <input type="text" name="q17_com">
+                <textarea class="campo-multilinea" name="q17_com" rows="1"></textarea>
 
             </td>
 
@@ -1875,7 +1912,7 @@
 
             <td colspan="2">
 
-                <input type="text" name="q18_det">
+                <textarea class="campo-multilinea" name="q18_det" rows="1"></textarea>
 
             </td>
 
@@ -1919,7 +1956,7 @@
 
             <td colspan="2">
 
-                <input type="text" name="q19_det">
+                <textarea class="campo-multilinea" name="q19_det" rows="1"></textarea>
 
             </td>
 
@@ -2025,7 +2062,7 @@
 
                     ¿Cuál?
 
-                    <input type="text" name="opt_otro1_txt">
+                    <textarea class="campo-multilinea" name="opt_otro1_txt" rows="1"></textarea>
 
                 </div>
 
@@ -2103,7 +2140,7 @@
 
                     ¿Cuál?
 
-                    <input type="text" name="opt_otro2_txt">
+                    <textarea class="campo-multilinea" name="opt_otro2_txt" rows="1"></textarea>
 
                 </div>
 
@@ -2869,6 +2906,8 @@ document.addEventListener(
 
         cargarBorrador();
 
+        ajustarCamposMultilinea();
+
 
 
         const campos =
@@ -2914,6 +2953,44 @@ document.addEventListener(
 );
 
 
+
+
+
+/* ===== Cajas de texto que crecen con su contenido ===== */
+
+function ajustarCamposMultilinea() {
+
+    if (CSS.supports('field-sizing', 'content')) {
+
+        return;
+
+    }
+
+    document
+        .querySelectorAll('textarea.campo-multilinea')
+        .forEach(campo => {
+
+            campo.style.height = 'auto';
+
+            campo.style.height = campo.scrollHeight + 'px';
+
+        });
+
+}
+
+document.addEventListener('input', function (evento) {
+
+    if (evento.target.matches('textarea.campo-multilinea')) {
+
+        ajustarCamposMultilinea();
+
+    }
+
+});
+
+window.addEventListener('load', ajustarCamposMultilinea);
+
+window.addEventListener('beforeprint', ajustarCamposMultilinea);
 
 
 

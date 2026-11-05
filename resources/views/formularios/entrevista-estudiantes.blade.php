@@ -434,6 +434,10 @@
         margin: 0 2px;
     }
 
+    .fecha-group input[name="fecha_anio"] {
+        width: 34px;
+    }
+
     .fecha-group input:focus {
         outline: none;
         background: #fafff0;
