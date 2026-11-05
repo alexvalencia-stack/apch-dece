@@ -1622,7 +1622,7 @@
 
             <td>Fecha de nacimiento</td>
 
-            <td>
+            <td colspan="5">
 
                 <input type="text" name="est_fecha_nac">
 
@@ -1630,7 +1630,7 @@
 
 
 
-            <td colspan="5">Grado/Curso</td>
+            <td>Grado/Curso</td>
 
 
 
@@ -1658,11 +1658,11 @@
 
         <tr>
 
-            <td colspan="4">Nº documento identidad</td>
+            <td colspan="3">Nº documento identidad</td>
 
 
 
-            <td>
+            <td colspan="5">
 
                 <input type="text" name="est_doc_id">
 
@@ -1670,7 +1670,7 @@
 
 
 
-            <td colspan="4">Discapacidad</td>
+            <td>Discapacidad</td>
 
 
 

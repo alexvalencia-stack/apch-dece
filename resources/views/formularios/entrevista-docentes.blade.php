@@ -999,11 +999,7 @@
                 &iquest;Tal vez &eacute;l o la estudiante ha cambiado de actitud? &iquest;En qu&eacute; ha cambiado? &iquest;Desde cu&aacute;ndo? &iquest;Sabe si existe alguna raz&oacute;n para el cambio de actitud?
             </span>
 
-            <input
-                type="text"
-                class="fill-inline"
-                style="width:10%;"
-            >
+            <input type="text" class="fill-full">
 
         </div>
 
@@ -1014,11 +1010,7 @@
                 &iquest;Usted ha visto que &eacute;l o la estudiante comparte tiempo con amigos/as? &iquest;Qu&eacute; hacen cuando est&aacute;n juntos/as? &iquest;Qui&eacute;nes son sus amigos/as? &iquest;C&oacute;mo son sus relaciones?
             </span>
 
-            <input
-                type="text"
-                class="fill-inline"
-                style="width:8%;"
-            >
+            <input type="text" class="fill-full">
 
         </div>
 
@@ -1158,11 +1150,7 @@
                 &iquest;Conoce si &eacute;l o la representante cumple su responsabilidad de apoyar y acompa&ntilde;ar a &eacute;l o la estudiante en su proceso de desarrollo integral?
             </span>
 
-            <input
-                type="text"
-                class="fill-inline"
-                style="width:8%;"
-            >
+            <input type="text" class="fill-full">
 
         </div>
 
