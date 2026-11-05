@@ -34,7 +34,6 @@ class Formulario extends Model
         $rutas = array_filter([
             $this->datos_path,
             $this->pdf_path,
-            $this->rutaCarpetaFormulario(),
             'formularios/'.$this->id,
         ], function (?string $ruta): bool {
             return is_string($ruta) && trim($ruta) !== '';
@@ -55,6 +54,17 @@ class Formulario extends Model
             if ($disk->exists($ruta)) {
                 $disk->delete($ruta);
             }
+        }
+
+        $carpeta = $this->rutaCarpetaFormulario();
+
+        if (
+            $carpeta !== null &&
+            $this->rutaEsPermitidaParaEliminacion($carpeta) &&
+            $disk->directoryExists($carpeta) &&
+            $disk->allFiles($carpeta) === []
+        ) {
+            $disk->deleteDirectory($carpeta);
         }
     }
 

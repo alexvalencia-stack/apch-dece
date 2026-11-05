@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Formulario;
 use App\Models\User;
+use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Process\Exceptions\ProcessTimedOutException;
 use Illuminate\Support\Facades\DB;
@@ -19,6 +20,8 @@ use function Illuminate\Support\defer;
 
 class FormularioController extends Controller
 {
+    private const TAMANO_MAXIMO_DATOS = 2 * 1024 * 1024;
+
     private const MAPA_FORMULARIOS = [
         'ENTREVISTA ESTUDIANTES' => 'entrevista-estudiantes',
         'FICHA DE OBSERVACIÓN' => 'ficha-observacion',
@@ -309,7 +312,7 @@ class FormularioController extends Controller
         abort_unless($formulario->usuario_id === auth()->id(), 404);
 
         $datosValidados = $request->validate([
-            'datos' => ['required', 'array'],
+            'datos' => ['required', 'array', $this->reglaTamanoMaximoDatos()],
         ]);
 
         $nombreFormulario = $formulario->nombre_formulario;
@@ -387,18 +390,15 @@ class FormularioController extends Controller
         ]);
     }
 
-    public function registrar(Request $request)
+    private function reglaTamanoMaximoDatos(): Closure
     {
-        $datos = $request->validate([
-            'nombre_formulario' => 'required|string|max:255',
-        ]);
+        return function (string $atributo, mixed $valor, Closure $fail): void {
+            $tamano = strlen(json_encode($valor, JSON_PARTIAL_OUTPUT_ON_ERROR) ?: '');
 
-        Formulario::create([
-            'nombre_formulario' => $datos['nombre_formulario'],
-            'usuario_id' => auth()->id(),
-        ]);
-
-        return back()->with('success', 'Formulario registrado correctamente.');
+            if ($tamano > self::TAMANO_MAXIMO_DATOS) {
+                $fail('Los datos del formulario superan el tamaño permitido.');
+            }
+        };
     }
 
     public function registros(Request $request)
@@ -477,7 +477,7 @@ class FormularioController extends Controller
                 'max:255',
                 Rule::in(array_keys(self::MAPA_FORMULARIOS)),
             ],
-            'datos' => ['required', 'array'],
+            'datos' => ['required', 'array', $this->reglaTamanoMaximoDatos()],
             'carpeta' => [
                 'required',
                 'string',
@@ -646,6 +646,10 @@ class FormularioController extends Controller
 
                 $resultado = Process::path(base_path())
                     ->timeout(60)
+                    ->env([
+                        'CHROME_PATH' => (string) config('services.pdf.chrome_path'),
+                        'PDF_SANDBOX' => config('services.pdf.sandbox') ? '1' : '0',
+                    ])
                     ->run(['node', $script, $htmlPath, $pdfTemporal]);
 
                 if (! $resultado->successful() || ! $disk->exists($pdfTemporalRelativo) || $disk->size($pdfTemporalRelativo) === 0) {

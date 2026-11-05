@@ -15,6 +15,7 @@ Route::get('/login', function () {
 })->name('login');
 
 Route::post('/login', [AuthController::class, 'login'])
+    ->middleware('throttle:login')
     ->name('login.authenticate');
 
 Route::post('/logout', [AuthController::class, 'logout'])
@@ -72,10 +73,6 @@ Route::get('/formularios/{formulario}/editar', [FormularioController::class, 'ed
 Route::put('/formularios/{formulario}/editar', [FormularioController::class, 'actualizar'])
     ->middleware(['auth', 'active'])
     ->name('formularios.actualizar');
-
-Route::post('/formularios/registrar', [FormularioController::class, 'registrar'])
-    ->middleware(['auth', 'active'])
-    ->name('formularios.registrar');
 
 Route::get('/secretario/dashboard', function () {
     return view('secretario.dashboard');

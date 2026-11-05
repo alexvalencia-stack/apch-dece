@@ -28,13 +28,14 @@ async function generarPDF() {
 
     fs.mkdirSync(path.dirname(pdfPath), { recursive: true });
 
+    const usarSandbox = process.env.PDF_SANDBOX === '1';
+
     const browser = await puppeteer.launch({
         headless: true,
-        executablePath: '/usr/bin/google-chrome',
+        executablePath: process.env.CHROME_PATH || '/usr/bin/google-chrome',
 
         args: [
-            '--no-sandbox',
-            '--disable-setuid-sandbox',
+            ...(usarSandbox ? [] : ['--no-sandbox', '--disable-setuid-sandbox']),
             '--disable-dev-shm-usage'
         ]
     });
@@ -224,6 +225,10 @@ async function generarPDF() {
         );
 
         await page.evaluate(() => {
+            if (typeof window.ajustarCamposMultilinea === 'function') {
+                window.ajustarCamposMultilinea();
+            }
+
             if (typeof window.prepararHistoriaParaImpresion === 'function') {
                 window.prepararHistoriaParaImpresion();
             }
