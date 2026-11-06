@@ -517,6 +517,9 @@
 
 
 
+    .row-inline > input[data-casilla] {
+        margin-left: 4px;
+    }
     .row-inline .lbl {
 
         white-space: nowrap;
@@ -1382,7 +1385,7 @@
 
                     Otro (indique)
 
-                    <input type="text" name="interna_men_otro_txt">
+                    <input type="text" name="interna_men_otro_txt" data-casilla="chk_men_otro" disabled>
 
                 </div>
 
@@ -1408,7 +1411,7 @@
 
                     Otro (indique)
 
-                    <input type="text" name="interna_inst_otro_txt">
+                    <input type="text" name="interna_inst_otro_txt" data-casilla="chk_inst_otro" disabled>
 
                 </div>
 
@@ -1456,7 +1459,7 @@
 
             <td colspan="6">
 
-                <input type="text" name="ext_policia_txt">
+                <input type="text" name="ext_policia_txt" data-casilla="chk_policia" disabled>
 
             </td>
 
@@ -1484,7 +1487,7 @@
 
                     name="ext_salud_pub_txt"
 
-                    placeholder="Citar en este espacio el centro de salud al que se deriva">
+                    placeholder="Citar en este espacio el centro de salud al que se deriva" data-casilla="chk_salud_pub" disabled>
 
             </td>
 
@@ -1512,7 +1515,7 @@
 
                     name="ext_salud_priv_txt"
 
-                    placeholder="Citar en este espacio el centro de salud al que se deriva">
+                    placeholder="Citar en este espacio el centro de salud al que se deriva" data-casilla="chk_salud_priv" disabled>
 
             </td>
 
@@ -1534,7 +1537,7 @@
 
             <td colspan="6">
 
-                <input type="text" name="ext_mies_txt">
+                <input type="text" name="ext_mies_txt" data-casilla="chk_mies" disabled>
 
             </td>
 
@@ -1556,7 +1559,7 @@
 
             <td colspan="6">
 
-                <input type="text" name="ext_mujer_txt">
+                <input type="text" name="ext_mujer_txt" data-casilla="chk_mujer" disabled>
 
             </td>
 
@@ -1572,7 +1575,7 @@
 
                     Otro (indique)
 
-                    <input type="text" name="ext_otro_txt">
+                    <input type="text" name="ext_otro_txt" data-casilla="chk_ext_otro" disabled>
 
                 </div>
 
@@ -1590,7 +1593,7 @@
 
             <td colspan="6">
 
-                <input type="text" name="ext_otro_txt2">
+                <input type="text" name="ext_otro_txt2" data-casilla="chk_ext_otro" disabled>
 
             </td>
 
@@ -2687,6 +2690,7 @@ window.addEventListener(
 
 @include('formularios.partials.modo-edicion')
 @include('formularios.partials.fechas-desde-hoy')
+@include('formularios.partials.campos-con-casilla')
 </body>
 
 </html>

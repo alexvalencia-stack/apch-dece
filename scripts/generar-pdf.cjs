@@ -225,7 +225,7 @@ async function generarPDF() {
         );
 
         await page.evaluate(() => {
-            document.querySelectorAll('[placeholder]').forEach(campo => {
+            document.querySelectorAll('.campo-otro[placeholder]').forEach(campo => {
                 campo.removeAttribute('placeholder');
             });
 

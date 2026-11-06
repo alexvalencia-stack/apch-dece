@@ -75,6 +75,51 @@ describe('ficha de derivación', function () {
             ->not->toMatch('/placeholder="Citar en este espacio[^"]*">\s*>/');
     });
 
+    it('only lets the user write next to an option once its checkbox is marked', function () {
+        $html = paginaDeFicha('formularios.ficha-derivacion');
+
+        $campos = [
+            'interna_men_otro_txt' => 'chk_men_otro',
+            'interna_inst_otro_txt' => 'chk_inst_otro',
+            'ext_policia_txt' => 'chk_policia',
+            'ext_salud_pub_txt' => 'chk_salud_pub',
+            'ext_salud_priv_txt' => 'chk_salud_priv',
+            'ext_mies_txt' => 'chk_mies',
+            'ext_mujer_txt' => 'chk_mujer',
+            'ext_otro_txt' => 'chk_ext_otro',
+            'ext_otro_txt2' => 'chk_ext_otro',
+        ];
+
+        foreach ($campos as $campo => $casilla) {
+            expect($html)
+                ->toMatch('/<input[^>]*name="'.$campo.'"[^>]*data-casilla="'.$casilla.'"[^>]*disabled|<input[^>]*data-casilla="'.$casilla.'"[^>]*name="'.$campo.'"[^>]*disabled/s')
+                ->toContain('name="'.$casilla.'"');
+        }
+    });
+
+    it('highlights the fields while their checkbox is marked and drops the highlight when printing', function () {
+        $html = paginaDeFicha('formularios.ficha-derivacion');
+
+        expect($html)
+            ->toContain('function sincronizarCamposConCasilla')
+            ->toMatch('/\[data-casilla\]:disabled\s*\{/')
+            ->toMatch('/\[data-casilla\]\.campo-activo[^{]*\{[^}]*background:/s')
+            ->toMatch('/@media print\s*\{[^@]*\[data-casilla\][^}]*background:\s*transparent/s');
+    });
+
+    it('separates the text typed after "Otro (indique)" from its label', function () {
+        expect(paginaDeFicha('formularios.ficha-derivacion'))
+            ->toMatch('/\.row-inline\s*>\s*input\[data-casilla\]\s*\{[^}]*margin-left:\s*4px/s');
+    });
+
+    it('keeps printing the citation hint of the health center fields in the PDF', function () {
+        $script = file_get_contents(base_path('scripts/generar-pdf.cjs'));
+
+        expect($script)
+            ->toContain('.campo-otro[placeholder]')
+            ->not->toContain("querySelectorAll('[placeholder]')");
+    });
+
     it('keeps the parentheses of a checkbox on one line even in a very narrow cell', function () {
         $html = paginaDeFicha('formularios.ficha-derivacion');
 
