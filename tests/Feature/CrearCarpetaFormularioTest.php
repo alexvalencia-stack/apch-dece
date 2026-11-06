@@ -31,12 +31,12 @@ it('creates a named folder in private storage', function () {
 
     $this->actingAs($usuario)
         ->post(route('formularios.carpetas.store'), [
-            'nombre' => 'Ciclo 2026-2027',
+            'nombre' => 'Ciclo Escolar',
         ])
         ->assertRedirect(route('formularios.index'))
         ->assertSessionHas('success', 'La carpeta se creó correctamente.');
 
-    expect(Storage::disk('local')->directoryExists('Usuario selector/Ciclo 2026-2027'))->toBeTrue();
+    expect(Storage::disk('local')->directoryExists('Usuario selector/Ciclo Escolar'))->toBeTrue();
 });
 
 it('shows the folder creation option on the forms page', function () {

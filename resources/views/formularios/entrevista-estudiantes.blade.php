@@ -316,15 +316,16 @@
 
     .section {
         margin: 6px 0 3px 0;
-        display: flex;
+        padding-left: 15px;
+        text-indent: -15px;
         line-height: 12px;
     }
-
     .section .letter {
+        display: inline-block;
         font-weight: bold;
         font-style: italic;
         width: 15px;
-        flex-shrink: 0;
+        text-indent: 0;
     }
 
     .section .sec-title {
@@ -710,7 +711,7 @@
 
     <!-- ===== HEADER ===== -->
 
-    @include('formularios.partials.encabezado-institucional')
+    @include('formularios.partials.encabezado-institucional', ['conDepartamento' => true])
 
 
     <!-- ===== TITULO ===== -->

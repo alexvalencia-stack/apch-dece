@@ -542,7 +542,9 @@
 
 
 
-    input[type="text"] {
+    input[type="text"],
+
+    input[type="date"] {
 
         flex: 1;
 
@@ -564,7 +566,9 @@
 
 
 
-    input[type="text"]:focus {
+    input[type="text"]:focus,
+
+    input[type="date"]:focus {
 
         outline: none;
 
@@ -605,6 +609,8 @@
     input[type="checkbox"]::after {
 
         content: "( )";
+
+        white-space: nowrap;
 
         position: absolute;
 
@@ -724,6 +730,52 @@
 
     }
 
+    textarea.campo-otro:disabled {
+
+        background: #ececec;
+
+        color: #000;
+
+        -webkit-text-fill-color: #000;
+
+        opacity: 1;
+
+        cursor: not-allowed;
+
+    }
+
+
+
+    textarea.campo-otro::placeholder {
+
+        color: #8a6d00;
+
+        font-style: italic;
+
+    }
+
+
+
+    textarea.campo-otro:disabled::placeholder {
+
+        color: transparent;
+
+        -webkit-text-fill-color: transparent;
+
+    }
+
+
+
+    textarea.campo-otro-activo,
+
+    textarea.campo-otro-activo:focus {
+
+        background: #fff6cc;
+
+        outline: 1px solid #d9a400;
+
+    }
+
 
 
     .instr-italic {
@@ -809,6 +861,17 @@
     @media print {
         table.form tr {
             break-inside: avoid;
+        }
+        textarea.campo-otro,
+        textarea.campo-otro:disabled,
+        textarea.campo-otro-activo,
+        textarea.campo-otro-activo:focus {
+            background: transparent !important;
+            outline: none !important;
+        }
+        textarea.campo-otro::placeholder {
+            color: transparent !important;
+            -webkit-text-fill-color: transparent !important;
         }
 
 
@@ -1256,9 +1319,11 @@
 
                 <input
 
-                    type="text"
+                    type="date"
 
-                    name="fecha_obs">
+                    name="fecha_obs"
+
+                    data-desde-hoy>
 
             </td>
 
@@ -2062,7 +2127,7 @@
 
                     ¿Cuál?
 
-                    <textarea class="campo-multilinea" name="opt_otro1_txt" rows="1"></textarea>
+                    <textarea class="campo-multilinea campo-otro" name="opt_otro1_txt" rows="1" placeholder="Escriba cuál…" disabled></textarea>
 
                 </div>
 
@@ -2140,7 +2205,7 @@
 
                     ¿Cuál?
 
-                    <textarea class="campo-multilinea" name="opt_otro2_txt" rows="1"></textarea>
+                    <textarea class="campo-multilinea campo-otro" name="opt_otro2_txt" rows="1" placeholder="Escriba cuál…" disabled></textarea>
 
                 </div>
 
@@ -2908,6 +2973,8 @@ document.addEventListener(
 
         ajustarCamposMultilinea();
 
+        sincronizarCamposOtro();
+
 
 
         const campos =
@@ -2994,6 +3061,70 @@ window.addEventListener('beforeprint', ajustarCamposMultilinea);
 
 
 
+/* ===== "Otro ¿Cuál?": solo se escribe si "Otro" esta marcado ===== */
+
+function sincronizarCamposOtro() {
+
+    document
+        .querySelectorAll('textarea.campo-otro')
+        .forEach(campo => {
+
+            const casilla = document.querySelector(
+                'input[type="checkbox"][name="' + campo.name.replace(/_txt$/, '') + '"]'
+            );
+
+            const activo = Boolean(casilla && casilla.checked);
+
+            campo.disabled = !activo;
+
+            campo.classList.toggle('campo-otro-activo', activo);
+
+        });
+
+}
+
+document.addEventListener('change', function (evento) {
+
+    const casilla = evento.target;
+
+    if (!casilla.matches('input[type="checkbox"]')) {
+
+        return;
+
+    }
+
+    const campo = document.querySelector(
+        'textarea.campo-otro[name="' + casilla.name + '_txt"]'
+    );
+
+    if (!campo) {
+
+        return;
+
+    }
+
+    if (!casilla.checked) {
+
+        campo.value = '';
+
+        campo.dispatchEvent(new Event('input', { bubbles: true }));
+
+    }
+
+    sincronizarCamposOtro();
+
+    if (casilla.checked) {
+
+        campo.focus();
+
+    }
+
+});
+
+window.addEventListener('load', sincronizarCamposOtro);
+
+
+
 /* ===== Ajustar al cambiar tamaño ===== */
 
 
@@ -3058,6 +3189,7 @@ window.addEventListener(
 </div>
 
 @include('formularios.partials.modo-edicion')
+@include('formularios.partials.fechas-desde-hoy')
 </body>
 
 </html>

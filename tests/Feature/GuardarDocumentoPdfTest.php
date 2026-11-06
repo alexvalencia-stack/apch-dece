@@ -52,6 +52,7 @@ it('stores the submitted form data and creates its PDF after responding', functi
         expect($html)
             ->toContain('datos-formulario-pdf')
             ->toContain('data:image/png;base64,')
+            ->not->toContain('images/escudo-dece.png')
             ->toContain('Estudiante Ejemplo');
 
         file_put_contents($comando[3], "%PDF-1.4\nPDF de prueba\n");
@@ -421,11 +422,10 @@ it('renders the shared institutional header and toolbar on all form templates', 
 
     expect($contenido)
         ->toContain('class="dece-header"')
-        ->toContain('src="'.asset('images/logo-apch.png').'"')
+        ->toContain('src="'.asset('images/escudo-dece.png').'"')
         ->toContain('UNIDAD EDUCATIVA')
         ->toContain('&ldquo;ANGEL POLIBIO CHAVES&rdquo;')
         ->toContain('San Miguel - Provincia Bolívar - Ecuador')
-        ->toContain('DEPARTAMENTO DE CONSEJERIA ESTUDIANTIL')
         ->toContain('.toolbar::after')
         ->toContain('border-left: 5px solid #a31616')
         ->toContain('border-radius: 16px')

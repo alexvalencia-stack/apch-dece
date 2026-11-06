@@ -15,7 +15,6 @@ Route::get('/login', function () {
 })->name('login');
 
 Route::post('/login', [AuthController::class, 'login'])
-    ->middleware('throttle:login')
     ->name('login.authenticate');
 
 Route::post('/logout', [AuthController::class, 'logout'])

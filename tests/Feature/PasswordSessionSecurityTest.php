@@ -24,8 +24,8 @@ it('requires an active authenticated user to access password routes', function (
 
     $this->put(route('password.update'), [
         'current_password' => 'password',
-        'password' => 'new-password',
-        'password_confirmation' => 'new-password',
+        'password' => 'Nueva-Clave-2026',
+        'password_confirmation' => 'Nueva-Clave-2026',
     ])->assertRedirect(route('login'));
 });
 
@@ -45,8 +45,8 @@ it('prevents an inactive user from accessing password routes', function () {
     $this->actingAs($user)
         ->put(route('password.update'), [
             'current_password' => 'old-password',
-            'password' => 'new-password',
-            'password_confirmation' => 'new-password',
+            'password' => 'Nueva-Clave-2026',
+            'password_confirmation' => 'Nueva-Clave-2026',
         ])
         ->assertRedirect(route('login'));
 });
@@ -64,14 +64,14 @@ it('changes the password and keeps the current session authenticated', function 
         ->from(route('password.edit'))
         ->put(route('password.update'), [
             'current_password' => 'old-password',
-            'password' => 'new-password',
-            'password_confirmation' => 'new-password',
+            'password' => 'Nueva-Clave-2026',
+            'password_confirmation' => 'Nueva-Clave-2026',
         ]);
 
     $response->assertRedirect(route('password.edit'))
         ->assertSessionHas('success');
 
-    expect(Hash::check('new-password', $user->fresh()->password))
+    expect(Hash::check('Nueva-Clave-2026', $user->fresh()->password))
         ->toBeTrue()
         ->and(session()->has('password_hash_web'))
         ->toBeTrue();
@@ -95,8 +95,8 @@ it('rejects a session with the pre-change password hash', function () {
         ->from(route('password.edit'))
         ->put(route('password.update'), [
             'current_password' => 'old-password',
-            'password' => 'new-password',
-            'password_confirmation' => 'new-password',
+            'password' => 'Nueva-Clave-2026',
+            'password_confirmation' => 'Nueva-Clave-2026',
         ])
         ->assertRedirect(route('password.edit'));
 

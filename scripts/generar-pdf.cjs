@@ -225,6 +225,14 @@ async function generarPDF() {
         );
 
         await page.evaluate(() => {
+            document.querySelectorAll('.campo-otro[placeholder]').forEach(campo => {
+                campo.removeAttribute('placeholder');
+            });
+
+            if (typeof window.marcarFechasVacias === 'function') {
+                window.marcarFechasVacias();
+            }
+
             if (typeof window.ajustarCamposMultilinea === 'function') {
                 window.ajustarCamposMultilinea();
             }

@@ -47,10 +47,10 @@ class FormularioController extends Controller
                 'required',
                 'string',
                 'max:100',
-                'regex:/^[\pL\pN][\pL\pN _()-]*$/u',
+                'regex:/^\pL+(?: \pL+)*$/u',
             ],
         ], [
-            'nombre.regex' => 'El nombre solo puede contener letras, números, espacios, guiones, guiones bajos y paréntesis.',
+            'nombre.regex' => 'El nombre solo puede contener letras y espacios entre palabras.',
         ]);
 
         $disk = Storage::disk('local');
@@ -605,7 +605,7 @@ class FormularioController extends Controller
             try {
                 $html = view('formularios.'.$vistaFormulario)->render();
 
-                foreach (['images/logo-apch.png', 'images/ecuador-resuelve.png'] as $imagen) {
+                foreach (['images/logo-apch.png', 'images/escudo-dece.png', 'images/ecuador-resuelve.png'] as $imagen) {
                     $rutaImagen = public_path($imagen);
 
                     if (! is_file($rutaImagen)) {

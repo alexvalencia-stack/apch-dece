@@ -24,28 +24,65 @@ beforeEach(function () {
     ]);
 });
 
-it('blocks further login attempts after too many failures for the same username', function () {
+function intentarLogin(string $usuario, string $clave)
+{
+    return test()->post(route('login.authenticate'), [
+        'username' => $usuario,
+        'password' => $clave,
+    ]);
+}
+
+it('blocks the account after five failed attempts, even with the right password', function () {
     foreach (range(1, 5) as $intento) {
-        $this->post(route('login.authenticate'), [
-            'username' => 'ana',
-            'password' => 'incorrecta-'.$intento,
-        ])->assertSessionHasErrors('username');
+        intentarLogin('ana', 'incorrecta-'.$intento)->assertSessionHasErrors('username');
     }
 
-    $this->post(route('login.authenticate'), [
-        'username' => 'ana',
-        'password' => 'password-correcta',
-    ])->assertTooManyRequests();
+    $respuesta = intentarLogin('ana', 'password-correcta');
+
+    $respuesta->assertSessionHasErrors('username');
+    expect(session('errors')->first('username'))->toContain('bloqueado');
+    $this->assertGuest();
+});
+
+it('does not count successful logins towards the limit', function () {
+    foreach (range(1, 7) as $vez) {
+        intentarLogin('ana', 'password-correcta')->assertRedirect(route('secretario.dashboard'));
+        $this->post(route('logout'));
+    }
 
     $this->assertGuest();
 });
 
+it('clears the failed attempts after a successful login', function () {
+    foreach (range(1, 4) as $intento) {
+        intentarLogin('ana', 'incorrecta-'.$intento);
+    }
+
+    intentarLogin('ana', 'password-correcta')->assertRedirect(route('secretario.dashboard'));
+    $this->post(route('logout'));
+
+    foreach (range(1, 4) as $intento) {
+        intentarLogin('ana', 'incorrecta-'.$intento);
+    }
+
+    intentarLogin('ana', 'password-correcta')->assertRedirect(route('secretario.dashboard'));
+});
+
+it('lifts the block after fifteen minutes', function () {
+    foreach (range(1, 5) as $intento) {
+        intentarLogin('ana', 'incorrecta-'.$intento);
+    }
+
+    intentarLogin('ana', 'password-correcta')->assertSessionHasErrors('username');
+
+    $this->travel(16)->minutes();
+
+    intentarLogin('ana', 'password-correcta')->assertRedirect(route('secretario.dashboard'));
+});
+
 it('does not block a different username from the same address', function () {
     foreach (range(1, 5) as $intento) {
-        $this->post(route('login.authenticate'), [
-            'username' => 'ana',
-            'password' => 'incorrecta-'.$intento,
-        ]);
+        intentarLogin('ana', 'incorrecta-'.$intento);
     }
 
     User::create([
@@ -56,10 +93,6 @@ it('does not block a different username from the same address', function () {
         'status' => true,
     ]);
 
-    $this->post(route('login.authenticate'), [
-        'username' => 'beto',
-        'password' => 'password-correcta',
-    ])->assertRedirect(route('secretario.dashboard'));
-
+    intentarLogin('beto', 'password-correcta')->assertRedirect(route('secretario.dashboard'));
     $this->assertAuthenticated();
 });

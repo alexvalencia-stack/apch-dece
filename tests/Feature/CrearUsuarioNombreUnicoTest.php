@@ -36,7 +36,7 @@ it('rejects a new user whose name is already used, since the name names the stor
         ->post(route('usuarios.store'), [
             'name' => 'Juan Pérez',
             'username' => 'juan2',
-            'password' => 'password-segura',
+            'password' => 'Clave-Segura-2026',
             'role' => 'analista',
         ])
         ->assertSessionHasErrors('name');

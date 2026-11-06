@@ -643,7 +643,7 @@
 
 <div class="page">
 
-    @include('formularios.partials.encabezado-institucional')
+    @include('formularios.partials.encabezado-institucional', ['conDepartamento' => true])
 
 
     <div class="form-title">

@@ -178,32 +178,31 @@
     input[type="checkbox"] {
         appearance: none;
         -webkit-appearance: none;
-        width: 28px;
-        height: 16px;
+        width: 11px;
+        height: 11px;
         position: relative;
         vertical-align: middle;
-        margin: 0;
+        margin: 0 4px;
         padding: 0;
-        border: none;
-        background: transparent;
+        border: 1px solid #000;
+        background: #fff;
         cursor: pointer;
     }
     input[type="checkbox"]::after {
-        content: "( )";
+        content: "";
         position: absolute;
         inset: 0;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-family: "Times New Roman", Times, serif;
-        font-size: 9.3px;
-        font-weight: normal;
-        line-height: 16px;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 10px;
+        font-weight: bold;
+        line-height: 9px;
         color: #000;
     }
     input[type="checkbox"]:checked::after {
-        content: "(x)";
-        font-weight: bold;
+        content: "X";
     }
     .header {
         display: table;
@@ -723,7 +722,7 @@
 <div class="documento">
 <!-- ==================== PÁGINA 1 ==================== -->
 <div class="page">
-    @include('formularios.partials.encabezado-institucional')
+    @include('formularios.partials.encabezado-institucional', ['conDepartamento' => true])
     <div class="form-title">
         ENTREVISTA SEMIESTRUCTURADA PARA REPRESENTANTE
     </div>
@@ -821,10 +820,10 @@
     <div class="alerta-block">
         Identificación de la alerta:
         Iniciativa propia
-        ( <input type="checkbox"> )
+        <input type="checkbox">
 
         Derivación de otro miembro de la comunidad educativa
-        ( <input type="checkbox"> )
+        <input type="checkbox">
         <br>
         Nombre del entrevistado/a:
         <input type="text" class="fill-inline" style="width:30%;">
@@ -1085,16 +1084,16 @@
                 Tipo de familia:
             </td>
             <td style="width:22%;">
-                Nuclear ( <input type="checkbox"> )
+                Nuclear <input type="checkbox">
             </td>
             <td style="width:22%;">
-                Monoparental ( <input type="checkbox"> )
+                Monoparental <input type="checkbox">
             </td>
             <td style="width:20%;">
-                Ensamblada ( <input type="checkbox"> )
+                Ensamblada <input type="checkbox">
             </td>
             <td style="width:22%;">
-                Acogedora ( <input type="checkbox"> )
+                Acogedora <input type="checkbox">
             </td>
         </tr>
     </table>
@@ -1104,10 +1103,10 @@
                 Personas con quien vive el/la estudiante
             </td>
             <td style="width:32%;">
-                Madre ( <input type="checkbox"> )
+                Madre <input type="checkbox">
             </td>
             <td style="width:33%;">
-                Padre ( <input type="checkbox"> )
+                Padre <input type="checkbox">
             </td>
         </tr>
     </table>
@@ -1175,20 +1174,20 @@
     <div class="linea-box">
         Familiares con discapacidad
 
-        Si ( <input type="checkbox"> )
+        Si <input type="checkbox">
 
         Tipo:
-        Física ( <input type="checkbox"> )
+        Física <input type="checkbox">
 
-        Intelectual ( <input type="checkbox"> )
+        Intelectual <input type="checkbox">
 
-        Auditiva ( <input type="checkbox"> )
+        Auditiva <input type="checkbox">
 
-        Visual ( <input type="checkbox"> )
+        Visual <input type="checkbox">
 
-        Lenguaje ( <input type="checkbox"> )
+        Lenguaje <input type="checkbox">
 
-        Multidiscapacidad ( <input type="checkbox"> )
+        Multidiscapacidad <input type="checkbox">
         <br>
 
         Porcentaje:
@@ -1198,7 +1197,7 @@
         <input type="text" class="fill-inline" style="width:22%;">
         <br>
 
-        No ( <input type="checkbox"> )
+        No <input type="checkbox">
     </div>
     <div class="subtitulo">
         Antecedentes Sociales
@@ -1361,15 +1360,15 @@
                 <input type="text" class="fill-inline" style="width:70%;">
             </td>
             <td>
-                SI ( <input type="checkbox"> )
-                NO ( <input type="checkbox"> )
+                SI <input type="checkbox">
+                NO <input type="checkbox">
             </td>
             <td></td>
             <td>
-                A término ( <input type="checkbox"> )
-                Prematuro ( <input type="checkbox"> )
-                Normal ( <input type="checkbox"> )
-                Cesárea ( <input type="checkbox"> )
+                A término <input type="checkbox">
+                Prematuro <input type="checkbox">
+                Normal <input type="checkbox">
+                Cesárea <input type="checkbox">
             </td>
         </tr>
     </table>
@@ -1485,16 +1484,16 @@
             </td>
             <td>
                 Tipo:
-                Física ( <input type="checkbox"> )
-                Intelectual ( <input type="checkbox"> )
-                Auditiva ( <input type="checkbox"> )
-                Visual ( <input type="checkbox"> )
-                Lenguaje ( <input type="checkbox"> )
-                Multidiscapacidad ( <input type="checkbox"> )
+                Física <input type="checkbox">
+                Intelectual <input type="checkbox">
+                Auditiva <input type="checkbox">
+                Visual <input type="checkbox">
+                Lenguaje <input type="checkbox">
+                Multidiscapacidad <input type="checkbox">
                 <br>
                 Posee carné de persona con discapacidad:
-                No ( <input type="checkbox"> )
-                Si ( <input type="checkbox"> )
+                No <input type="checkbox">
+                Si <input type="checkbox">
                 Nº:
                 <input type="text" class="fill-inline" style="width:18%;">
                 Porcentaje:
@@ -1510,19 +1509,19 @@
             </td>
             <td>
                 Nivel de autonomía:
-                Caminar solo( <input type="checkbox"> )
-                Bañarse solo ( <input type="checkbox"> )
-                Vestirse solo ( <input type="checkbox"> )
-                Comer solo ( <input type="checkbox"> )
-                Dormir solo ( <input type="checkbox"> )
+                Caminar solo<input type="checkbox">
+                Bañarse solo <input type="checkbox">
+                Vestirse solo <input type="checkbox">
+                Comer solo <input type="checkbox">
+                Dormir solo <input type="checkbox">
                 <br>
                 Recursos técnicos que requiere:
                 <input type="text" class="fill-inline" style="width:70%;">
                 <br>
                 Origen discapacidad:
-                Congénito ( <input type="checkbox"> )
-                Enfermedad ( <input type="checkbox"> )
-                Accidente ( <input type="checkbox"> )
+                Congénito <input type="checkbox">
+                Enfermedad <input type="checkbox">
+                Accidente <input type="checkbox">
             </td>
         </tr>
         <tr>
@@ -1537,8 +1536,8 @@
                 <input type="text" class="fill-inline" style="width:65%;">
                 <br>
                 Uso de medicación:
-                NO ( <input type="checkbox"> )
-                SI ( <input type="checkbox"> )
+                NO <input type="checkbox">
+                SI <input type="checkbox">
                 Cuál:
                 <input type="text" class="fill-inline" style="width:35%;">
             </td>
@@ -1560,12 +1559,12 @@
         Antecedentes patológicos familiares
     </div>
     <div class="linea-box">
-        Obesidad ( <input type="checkbox"> )
-        Enfermedades cardíacas ( <input type="checkbox"> )
-        Hipertensión ( <input type="checkbox"> )
-        Enfermedades mentales ( <input type="checkbox"> )
-        Diabetes ( <input type="checkbox"> )
-        Otros ( <input type="checkbox"> )
+        Obesidad <input type="checkbox">
+        Enfermedades cardíacas <input type="checkbox">
+        Hipertensión <input type="checkbox">
+        Enfermedades mentales <input type="checkbox">
+        Diabetes <input type="checkbox">
+        Otros <input type="checkbox">
         <input type="text" class="fill-inline" style="width:30%;">
     </div>
     <div class="subtitulo">
@@ -1601,9 +1600,9 @@
         Proceso de adaptación
     </div>
     <div class="linea-box">
-        Aceptable ( <input type="checkbox"> )
-        Dificultoso ( <input type="checkbox"> )
-        Deficiente ( <input type="checkbox"> )
+        Aceptable <input type="checkbox">
+        Dificultoso <input type="checkbox">
+        Deficiente <input type="checkbox">
         Observaciones:
         <input type="text" class="fill-inline" style="width:45%;">
     </div>
@@ -1616,11 +1615,11 @@
                 Académicos
             </td>
             <td>
-                Escritura ( <input type="checkbox"> )
-                Lectura ( <input type="checkbox"> )
-                Cálculo ( <input type="checkbox"> )
-                Ortografía ( <input type="checkbox"> )
-                Otros ( <input type="checkbox"> )
+                Escritura <input type="checkbox">
+                Lectura <input type="checkbox">
+                Cálculo <input type="checkbox">
+                Ortografía <input type="checkbox">
+                Otros <input type="checkbox">
                 <input type="text" class="fill-inline" style="width:40%;">
             </td>
         </tr>
@@ -1629,11 +1628,11 @@
                 Conductuales
             </td>
             <td>
-                Hiperactividad ( <input type="checkbox"> )
-                Pasividad ( <input type="checkbox"> )
-                Evitación ( <input type="checkbox"> )
-                Agresividad ( <input type="checkbox"> )
-                Otros ( <input type="checkbox"> )
+                Hiperactividad <input type="checkbox">
+                Pasividad <input type="checkbox">
+                Evitación <input type="checkbox">
+                Agresividad <input type="checkbox">
+                Otros <input type="checkbox">
                 <input type="text" class="fill-inline" style="width:40%;">
             </td>
         </tr>
