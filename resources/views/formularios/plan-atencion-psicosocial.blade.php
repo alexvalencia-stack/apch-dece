@@ -598,13 +598,7 @@
        SEGUNDA PÁGINA
        ========================= */
 
-    .page2-blank-header {
-        height: 14.7mm;
-
-        border-bottom: 0.55mm solid #000;
-    }
-
-    .follow-title {
+.follow-title {
         height: 14.5mm;
 
         text-align: center;
@@ -1598,16 +1592,7 @@
 
             </colgroup>
 
-            <tr>
-
-                <td
-                    colspan="5"
-                    class="page2-blank-header thick"
-                ></td>
-
-            </tr>
-
-            <tr>
+<tr>
 
                 <td
                     colspan="5"

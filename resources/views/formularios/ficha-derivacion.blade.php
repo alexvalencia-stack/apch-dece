@@ -527,7 +527,8 @@
 
 
 
-    input[type="text"] {
+    input[type="text"],
+    input[type="date"] {
 
         flex: 1;
 
@@ -549,7 +550,8 @@
 
 
 
-    input[type="text"]:focus {
+    input[type="text"]:focus,
+    input[type="date"]:focus {
 
         outline: none;
 
@@ -613,6 +615,27 @@
 
 
 
+    .chk-cell {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .chk-cell input[type="checkbox"] {
+        display: block;
+        width: 100%;
+    }
+    .dato-fijo {
+        font-family: "Times New Roman", Times, serif;
+        font-size: 12.5px;
+        font-weight: normal;
+    }
+    input.firma-nombre {
+        display: block;
+        flex: none;
+        width: calc(100% - 20px);
+        height: 18px;
+        margin: 0 10px;
+        text-align: center;
+    }
     .chk-cell {
 
         text-align: center;
@@ -1220,7 +1243,7 @@
 
                     <span class="lbl">Nombre de la institución educativa:</span>
 
-                    <input type="text" name="inst_nombre">
+                    <span class="dato-fijo">Unidad Educativa Ángel Polibio Chaves</span>
 
                 </div>
 
@@ -1238,7 +1261,7 @@
 
                     <span class="lbl">Dirección y número telefónico de la institución:</span>
 
-                    <input type="text" name="inst_direccion">
+                    <span class="dato-fijo">Avda. El Maestro - Barrio 13 de Abril - 032989035</span>
 
                 </div>
 
@@ -1256,7 +1279,7 @@
 
                     <span class="lbl">Fecha de derivación:</span>
 
-                    <input type="text" name="fecha_derivacion">
+                    <input type="date" name="fecha_derivacion" data-desde-hoy>
 
                 </div>
 
@@ -1610,7 +1633,7 @@
 
         <tr>
 
-            <td>Edad</td>
+            <td><strong>Edad</strong></td>
 
             <td>
 
@@ -1620,7 +1643,7 @@
 
 
 
-            <td>Fecha de nacimiento</td>
+            <td><strong>Fecha de nacimiento</strong></td>
 
             <td colspan="5">
 
@@ -1630,7 +1653,7 @@
 
 
 
-            <td>Grado/Curso</td>
+            <td><strong>Grado/Curso</strong></td>
 
 
 
@@ -1642,7 +1665,7 @@
 
 
 
-            <td>Género</td>
+            <td><strong>Género</strong></td>
 
 
 
@@ -1658,7 +1681,7 @@
 
         <tr>
 
-            <td colspan="3">Nº documento identidad</td>
+            <td colspan="3"><strong>Nº documento identidad</strong></td>
 
 
 
@@ -1670,7 +1693,7 @@
 
 
 
-            <td>Discapacidad</td>
+            <td><strong>Discapacidad</strong></td>
 
 
 
@@ -1864,7 +1887,7 @@
 
 
 
-                <div style="height:18px;"></div>
+                <input type="text" class="firma-nombre" name="nombre_profesional_dece">
 
 
 
@@ -1908,7 +1931,7 @@
 
 
 
-                <div style="height:18px;"></div>
+                <input type="text" class="firma-nombre" name="nombre_autoridad_institucional">
 
 
 
@@ -1952,7 +1975,7 @@
 
                     <span class="lbl">FECHA:</span>
 
-                    <input type="text" name="fecha_elaborada">
+                    <input type="date" name="fecha_elaborada" data-desde-hoy>
 
                 </div>
 
@@ -1966,7 +1989,7 @@
 
                     <span class="lbl">FECHA:</span>
 
-                    <input type="text" name="fecha_recibida">
+                    <input type="date" name="fecha_recibida" data-desde-hoy>
 
                 </div>
 
@@ -2666,6 +2689,7 @@ window.addEventListener(
 </div>
 
 @include('formularios.partials.modo-edicion')
+@include('formularios.partials.fechas-desde-hoy')
 </body>
 
 </html>

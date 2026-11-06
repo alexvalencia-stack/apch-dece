@@ -315,9 +315,34 @@
         cursor: pointer;
     }
 
-    .authorization input[type="radio"] {
+    input[type="radio"] {
+        appearance: none;
+        -webkit-appearance: none;
+        width: 13px;
+        height: 13px;
+        position: relative;
         vertical-align: middle;
-        margin: 0 3px;
+        margin: 0 4px;
+        padding: 0;
+        border: 1px solid #000;
+        background: #fff;
+        cursor: pointer;
+    }
+    input[type="radio"]::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 11px;
+        font-weight: bold;
+        line-height: 11px;
+        color: #000;
+    }
+    input[type="radio"]:checked::after {
+        content: "X";
     }
 
     .writing-space {
@@ -822,25 +847,21 @@
 
             AUTORIZO
 
-            (
-                <input
+            <input
                     type="radio"
                     name="autorizacion"
                     value="AUTORIZO"
                     data-draft="true"
                 >
-            )
 
             NO AUTORIZO
 
-            (
-                <input
+            <input
                     type="radio"
                     name="autorizacion"
                     value="NO AUTORIZO"
                     data-draft="true"
-                >
-            ),
+                >,
 
             que mi representado/a cuente con este servicio, en raz&oacute;n de que
 

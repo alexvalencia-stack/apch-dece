@@ -542,7 +542,9 @@
 
 
 
-    input[type="text"] {
+    input[type="text"],
+
+    input[type="date"] {
 
         flex: 1;
 
@@ -564,7 +566,9 @@
 
 
 
-    input[type="text"]:focus {
+    input[type="text"]:focus,
+
+    input[type="date"]:focus {
 
         outline: none;
 
@@ -1256,9 +1260,11 @@
 
                 <input
 
-                    type="text"
+                    type="date"
 
-                    name="fecha_obs">
+                    name="fecha_obs"
+
+                    data-desde-hoy>
 
             </td>
 
@@ -3058,6 +3064,7 @@ window.addEventListener(
 </div>
 
 @include('formularios.partials.modo-edicion')
+@include('formularios.partials.fechas-desde-hoy')
 </body>
 
 </html>
