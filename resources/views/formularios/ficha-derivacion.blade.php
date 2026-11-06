@@ -593,6 +593,7 @@
     input[type="checkbox"]::after {
 
         content: "( )";
+        white-space: nowrap;
         position: absolute;
         inset: 0;
         display: flex;

@@ -66,6 +66,12 @@ describe('ficha de derivación', function () {
         }
     });
 
+    it('keeps the parentheses of a checkbox on one line even in a very narrow cell', function () {
+        $html = paginaDeFicha('formularios.ficha-derivacion');
+
+        expect($html)->toMatch('/input\[type="checkbox"\]::after\s*\{[^}]*white-space:\s*nowrap/s');
+    });
+
     it('centers the checkbox inside its narrow table cell', function () {
         $html = paginaDeFicha('formularios.ficha-derivacion');
 
@@ -74,6 +80,42 @@ describe('ficha de derivación', function () {
 });
 
 describe('ficha de observación', function () {
+    it('keeps the parentheses of a checkbox on one line', function () {
+        expect(paginaDeFicha('formularios.ficha-observacion'))
+            ->toMatch('/input\[type="checkbox"\]::after\s*\{[^}]*white-space:\s*nowrap/s');
+    });
+
+    it('starts the "¿Cuál?" boxes disabled, with a hint for when they are enabled', function () {
+        $html = paginaDeFicha('formularios.ficha-observacion');
+
+        foreach (['opt_otro1_txt', 'opt_otro2_txt'] as $campo) {
+            expect($html)
+                ->toMatch('/<textarea[^>]*class="[^"]*campo-otro[^"]*"[^>]*name="'.$campo.'"[^>]*disabled/s')
+                ->toMatch('/<textarea[^>]*name="'.$campo.'"[^>]*placeholder="Escriba cuál/s');
+        }
+    });
+
+    it('enables the "¿Cuál?" box only while "Otro" is checked and highlights it', function () {
+        $html = paginaDeFicha('formularios.ficha-observacion');
+
+        expect($html)
+            ->toContain('function sincronizarCamposOtro')
+            ->toMatch('/textarea\.campo-otro:disabled\s*\{/')
+            ->toMatch('/textarea\.campo-otro-activo[^{]*\{[^}]*background:/s');
+    });
+
+    it('hides the hint while the "¿Cuál?" box is disabled, even though it forces a black text fill', function () {
+        expect(paginaDeFicha('formularios.ficha-observacion'))
+            ->toMatch('/textarea\.campo-otro:disabled::placeholder\s*\{[^}]*-webkit-text-fill-color:\s*transparent/s');
+    });
+
+    it('does not print the highlight or the hint of the "¿Cuál?" boxes', function () {
+        expect(paginaDeFicha('formularios.ficha-observacion'))
+            ->toMatch('/textarea\.campo-otro::placeholder\s*\{[^}]*-webkit-text-fill-color:\s*transparent\s*!important/s')
+            ->toMatch('/@media print\s*\{[^@]*textarea\.campo-otro[^}]*background:\s*transparent/s')
+            ->toMatch('/textarea\.campo-otro::placeholder\s*\{[^}]*color:\s*transparent/s');
+    });
+
     it('hides the calendar icon when printing the date fields', function () {
         foreach (['formularios.ficha-derivacion', 'formularios.ficha-observacion'] as $ruta) {
             expect(paginaDeFicha($ruta))->toMatch('/@media print\s*\{[^}]*input\[type="date"\]::-webkit-calendar-picker-indicator\s*\{[^}]*display:\s*none/s');

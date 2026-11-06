@@ -225,6 +225,10 @@ async function generarPDF() {
         );
 
         await page.evaluate(() => {
+            document.querySelectorAll('[placeholder]').forEach(campo => {
+                campo.removeAttribute('placeholder');
+            });
+
             if (typeof window.ajustarCamposMultilinea === 'function') {
                 window.ajustarCamposMultilinea();
             }
