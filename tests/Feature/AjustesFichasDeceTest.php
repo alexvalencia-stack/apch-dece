@@ -86,7 +86,6 @@ describe('ficha de derivación', function () {
             'ext_salud_priv_txt' => 'chk_salud_priv',
             'ext_mies_txt' => 'chk_mies',
             'ext_mujer_txt' => 'chk_mujer',
-            'ext_otro_txt' => 'chk_ext_otro',
             'ext_otro_txt2' => 'chk_ext_otro',
         ];
 
@@ -95,6 +94,15 @@ describe('ficha de derivación', function () {
                 ->toMatch('/<input[^>]*name="'.$campo.'"[^>]*data-casilla="'.$casilla.'"[^>]*disabled|<input[^>]*data-casilla="'.$casilla.'"[^>]*name="'.$campo.'"[^>]*disabled/s')
                 ->toContain('name="'.$casilla.'"');
         }
+    });
+
+    it('has a single box for the external "Otro (indique)" option, the one on the right', function () {
+        $html = paginaDeFicha('formularios.ficha-derivacion');
+
+        expect($html)
+            ->not->toContain('name="ext_otro_txt"')
+            ->toMatch('/<input[^>]*name="ext_otro_txt2"[^>]*data-casilla="chk_ext_otro"/s')
+            ->and(substr_count($html, 'data-casilla="chk_ext_otro"'))->toBe(1);
     });
 
     it('highlights the fields while their checkbox is marked and drops the highlight when printing', function () {

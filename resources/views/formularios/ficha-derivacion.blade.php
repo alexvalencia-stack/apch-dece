@@ -1575,8 +1575,6 @@
 
                     Otro (indique)
 
-                    <input type="text" name="ext_otro_txt" data-casilla="chk_ext_otro" disabled>
-
                 </div>
 
             </td>
