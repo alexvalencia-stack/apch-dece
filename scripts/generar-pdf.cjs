@@ -229,6 +229,10 @@ async function generarPDF() {
                 campo.removeAttribute('placeholder');
             });
 
+            if (typeof window.marcarFechasVacias === 'function') {
+                window.marcarFechasVacias();
+            }
+
             if (typeof window.ajustarCamposMultilinea === 'function') {
                 window.ajustarCamposMultilinea();
             }

@@ -125,6 +125,14 @@ describe('ficha de observación', function () {
             ->toMatch('/textarea\.campo-otro::placeholder\s*\{[^}]*color:\s*transparent/s');
     });
 
+    it('prints nothing for a date field that was left empty', function () {
+        foreach (['formularios.ficha-derivacion', 'formularios.ficha-observacion'] as $ruta) {
+            expect(paginaDeFicha($ruta))
+                ->toContain('function marcarFechasVacias')
+                ->toMatch('/@media print\s*\{[^@]*input\[type="date"\]\.sin-fecha::-webkit-datetime-edit\s*\{[^}]*visibility:\s*hidden/s');
+        }
+    });
+
     it('hides the calendar icon when printing the date fields', function () {
         foreach (['formularios.ficha-derivacion', 'formularios.ficha-observacion'] as $ruta) {
             expect(paginaDeFicha($ruta))->toMatch('/@media print\s*\{[^}]*input\[type="date"\]::-webkit-calendar-picker-indicator\s*\{[^}]*display:\s*none/s');
@@ -194,4 +202,26 @@ describe('plan de atención psicosocial', function () {
             ->not->toContain('page2-blank-header')
             ->toContain('SEGUIMIENTO DE LA ATENCIÓN PSICOSOCIAL');
     });
+});
+
+describe('encabezado institucional', function () {
+    dataset('fichas con encabezado', [
+        'derivación' => 'formularios.ficha-derivacion',
+        'observación' => 'formularios.ficha-observacion',
+        'representantes' => 'formularios.entrevista-representantes',
+        'docentes' => 'formularios.entrevista-docentes',
+        'consentimiento' => 'formularios.consentimiento-informado',
+        'alerta DECE' => 'formularios.ficha-alerta-dece',
+        'estudiantes' => 'formularios.entrevista-estudiantes',
+        'plan de atención' => 'formularios.plan-atencion-psicosocial',
+    ]);
+
+    it('anchors the school shield to the left edge of the centered text block', function (string $ruta) {
+        $html = paginaDeFicha($ruta);
+
+        expect($html)
+            ->toMatch('/<div class="dece-header-text">\s*<img[^>]*logo-apch\.png/')
+            ->toMatch('/\.dece-header-text img\s*\{[^}]*position:\s*absolute[^}]*right:\s*100%/s')
+            ->not->toContain('.dece-header-logo');
+    })->with('fichas con encabezado');
 });

@@ -3,6 +3,10 @@
         input[type="date"]::-webkit-calendar-picker-indicator {
             display: none;
         }
+
+        input[type="date"].sin-fecha::-webkit-datetime-edit {
+            visibility: hidden;
+        }
     }
 </style>
 <script>
@@ -14,6 +18,19 @@
 
             return ahora.getFullYear() + '-' + mes + '-' + dia;
         }
+
+        function marcarFechasVacias() {
+            document.querySelectorAll('input[type="date"]').forEach(function (campo) {
+                campo.classList.toggle('sin-fecha', !campo.value);
+            });
+        }
+
+        window.marcarFechasVacias = marcarFechasVacias;
+
+        document.addEventListener('input', marcarFechasVacias);
+        document.addEventListener('change', marcarFechasVacias);
+        window.addEventListener('load', marcarFechasVacias);
+        window.addEventListener('beforeprint', marcarFechasVacias);
 
         document.addEventListener('DOMContentLoaded', function () {
             const hoy = fechaDeHoy();

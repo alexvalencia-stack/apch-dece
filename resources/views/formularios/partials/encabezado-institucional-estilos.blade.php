@@ -1,31 +1,28 @@
 .dece-header {
-    display: table;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
     margin-bottom: 6px;
     padding-bottom: 3px;
     border-bottom: 3px solid #000;
 }
-
-.dece-header-logo {
-    display: table-cell;
-    width: 90px;
-    vertical-align: middle;
-}
-
-.dece-header-logo img {
-    display: block;
-    position: relative;
-    left: 150px;
-    width: 78px;
-    height: auto;
-}
-
 .dece-header-text {
     position: relative;
-    left: -45px;
-    display: table-cell;
-    vertical-align: middle;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 79px;
     text-align: center;
+}
+.dece-header-text img {
+    position: absolute;
+    right: 100%;
+    top: 50%;
+    width: 78px;
+    height: auto;
+    margin-right: 10px;
+    transform: translateY(-50%);
 }
 
 .dece-header-line1,
