@@ -722,7 +722,7 @@
 <div class="documento">
 <!-- ==================== PÁGINA 1 ==================== -->
 <div class="page">
-    @include('formularios.partials.encabezado-institucional')
+    @include('formularios.partials.encabezado-institucional', ['conDepartamento' => true])
     <div class="form-title">
         ENTREVISTA SEMIESTRUCTURADA PARA REPRESENTANTE
     </div>

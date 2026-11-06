@@ -711,7 +711,7 @@
 
     <!-- ===== HEADER ===== -->
 
-    @include('formularios.partials.encabezado-institucional')
+    @include('formularios.partials.encabezado-institucional', ['conDepartamento' => true])
 
 
     <!-- ===== TITULO ===== -->

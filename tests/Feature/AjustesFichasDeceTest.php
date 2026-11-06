@@ -261,11 +261,61 @@ describe('encabezado institucional', function () {
         'plan de atención' => 'formularios.plan-atencion-psicosocial',
     ]);
 
+    it('shows the department line only on the three interview forms, with its accent', function () {
+        $conDepartamento = [
+            'formularios.entrevista-docentes',
+            'formularios.entrevista-estudiantes',
+            'formularios.entrevista-representantes',
+        ];
+        $sinDepartamento = [
+            'formularios.ficha-derivacion',
+            'formularios.ficha-observacion',
+            'formularios.consentimiento-informado',
+            'formularios.ficha-alerta-dece',
+            'formularios.plan-atencion-psicosocial',
+        ];
+
+        foreach ($conDepartamento as $ruta) {
+            expect(paginaDeFicha($ruta))->toContain('DEPARTAMENTO DE CONSEJERÍA ESTUDIANTIL');
+        }
+
+        foreach ($sinDepartamento as $ruta) {
+            expect(paginaDeFicha($ruta))
+                ->not->toContain('DEPARTAMENTO DE CONSEJERÍA ESTUDIANTIL')
+                ->not->toContain('DEPARTAMENTO DE CONSEJERIA ESTUDIANTIL');
+        }
+    });
+
+    it('uses the typography of the original DECE header', function (string $ruta) {
+        $html = paginaDeFicha($ruta);
+
+        expect($html)
+            ->toMatch('/\.dece-header-line1\s*\{[^}]*font-size:\s*18\.67px[^}]*font-weight:\s*normal/s')
+            ->toMatch('/\.dece-header-line2\s*\{[^}]*font-size:\s*21\.33px[^}]*font-weight:\s*normal/s')
+            ->toMatch('/\.dece-header-line3\s*\{[^}]*font-size:\s*14\.67px/s')
+            ->toMatch('/\.dece-header-line4\s*\{[^}]*font-size:\s*10\.67px[^}]*font-weight:\s*bold/s');
+    })->with('fichas con encabezado');
+
+    it('draws the small shield and the shorter thick rule of the original header', function (string $ruta) {
+        $html = paginaDeFicha($ruta);
+
+        expect($html)
+            ->toMatch('/\.dece-header-text img\s*\{[^}]*width:\s*55px/s')
+            ->toMatch('/\.dece-header::after\s*\{[^}]*width:\s*148mm[^}]*border-bottom:\s*5px solid #000/s');
+    })->with('fichas con encabezado');
+
+    it('ships the sharp school shield taken from the original DECE documents', function () {
+        [$ancho, $alto] = getimagesize(public_path('images/escudo-dece.png'));
+
+        expect($ancho)->toBeGreaterThanOrEqual(200)
+            ->and($alto)->toBeGreaterThanOrEqual(220);
+    });
+
     it('anchors the school shield to the left edge of the centered text block', function (string $ruta) {
         $html = paginaDeFicha($ruta);
 
         expect($html)
-            ->toMatch('/<div class="dece-header-text">\s*<img[^>]*logo-apch\.png/')
+            ->toMatch('/<div class="dece-header-text">\s*<img[^>]*escudo-dece\.png/')
             ->toMatch('/\.dece-header-text img\s*\{[^}]*position:\s*absolute[^}]*right:\s*100%/s')
             ->not->toContain('.dece-header-logo');
     })->with('fichas con encabezado');

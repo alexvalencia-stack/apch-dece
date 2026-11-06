@@ -605,7 +605,7 @@ class FormularioController extends Controller
             try {
                 $html = view('formularios.'.$vistaFormulario)->render();
 
-                foreach (['images/logo-apch.png', 'images/ecuador-resuelve.png'] as $imagen) {
+                foreach (['images/logo-apch.png', 'images/escudo-dece.png', 'images/ecuador-resuelve.png'] as $imagen) {
                     $rutaImagen = public_path($imagen);
 
                     if (! is_file($rutaImagen)) {
