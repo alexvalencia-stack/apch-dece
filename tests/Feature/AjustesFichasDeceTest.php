@@ -66,6 +66,15 @@ describe('ficha de derivación', function () {
         }
     });
 
+    it('does not leave a stray ">" after the health center citation fields', function () {
+        $html = paginaDeFicha('formularios.ficha-derivacion');
+
+        expect($html)
+            ->toContain('name="ext_salud_pub_txt"')
+            ->toContain('name="ext_salud_priv_txt"')
+            ->not->toMatch('/placeholder="Citar en este espacio[^"]*">\s*>/');
+    });
+
     it('keeps the parentheses of a checkbox on one line even in a very narrow cell', function () {
         $html = paginaDeFicha('formularios.ficha-derivacion');
 

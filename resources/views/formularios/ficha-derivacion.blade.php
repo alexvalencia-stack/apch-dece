@@ -1486,8 +1486,6 @@
 
                     placeholder="Citar en este espacio el centro de salud al que se deriva">
 
-                >
-
             </td>
 
         </tr>
@@ -1515,8 +1513,6 @@
                     name="ext_salud_priv_txt"
 
                     placeholder="Citar en este espacio el centro de salud al que se deriva">
-
-                >
 
             </td>
 
