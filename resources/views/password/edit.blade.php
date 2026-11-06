@@ -633,7 +633,7 @@
                     >
 
                     <p class="help-text">
-                        La nueva contraseña debe tener al menos 8 caracteres.
+                        La nueva contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un carácter especial.
                     </p>
 
                 </div>

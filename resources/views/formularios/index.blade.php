@@ -1081,7 +1081,7 @@
                     aria-describedby="folder-help @error('nombre') folder-error @enderror"
                 >
                 <p class="folder-help" id="folder-help">
-                    Se guardará en su espacio privado dentro de storage/app/private. Se permiten letras, números, espacios, guiones, guiones bajos y paréntesis.
+                    Se guardará en su espacio privado dentro de storage/app/private. Solo se permiten letras y espacios entre palabras.
                 </p>
                 @error('nombre')
                     <p class="folder-error" id="folder-error">{{ $message }}</p>

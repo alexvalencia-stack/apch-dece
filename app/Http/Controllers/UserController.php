@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Rules\ContrasenaSegura;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -24,7 +25,7 @@ class UserController extends Controller
         $datos = $request->validate([
             'name' => 'required|string|max:255|unique:users,name',
             'username' => 'required|string|max:255|unique:users,username',
-            'password' => 'required|string|min:8',
+            'password' => ['required', 'string', new ContrasenaSegura],
             'role' => 'required|in:coordinador,analista',
         ]);
 

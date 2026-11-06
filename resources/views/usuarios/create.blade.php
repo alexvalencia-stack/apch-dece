@@ -1374,7 +1374,7 @@
                 </div>
 
                 <p class="field-help">
-                    La contraseña debe tener al menos 8 caracteres.
+                    La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un carácter especial.
                 </p>
 
             </div>
