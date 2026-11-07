@@ -435,8 +435,8 @@
         margin: 0 2px;
     }
 
-    .fecha-group input[name="fecha_anio"] {
-        width: 34px;
+    .fecha-group input[type="date"] {
+        width: 96px;
     }
 
     .fecha-group input:focus {
@@ -711,7 +711,7 @@
 
     <!-- ===== HEADER ===== -->
 
-    @include('formularios.partials.encabezado-institucional', ['conDepartamento' => true])
+    @include('formularios.partials.encabezado-institucional')
 
 
     <!-- ===== TITULO ===== -->
@@ -1299,27 +1299,7 @@ No
 
             Fecha:
 
-            <input
-                type="text"
-                maxlength="2"
-                name="fecha_dia"
-            >
-
-            /
-
-            <input
-                type="text"
-                maxlength="2"
-                name="fecha_mes"
-            >
-
-            /
-
-            <input
-                type="text"
-                maxlength="4"
-                name="fecha_anio"
-            >
+            <input type="date" name="fecha" data-desde-hoy>
 
         </span>
 
@@ -1866,5 +1846,6 @@ function confirmarBorrarTodo() {
 
 </div>
 @include('formularios.partials.modo-edicion')
+@include('formularios.partials.fechas-desde-hoy')
 </body>
 </html>

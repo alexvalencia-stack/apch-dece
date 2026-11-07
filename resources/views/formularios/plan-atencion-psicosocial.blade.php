@@ -1242,6 +1242,7 @@
                         <input
                             type="date"
                             aria-label="Fecha de elaboración del plan"
+                    data-desde-hoy
                         >
 
                     </span>
@@ -3200,5 +3201,6 @@ window.addEventListener(
 
 </div>
 @include('formularios.partials.modo-edicion')
+@include('formularios.partials.fechas-desde-hoy')
 </body>
 </html>

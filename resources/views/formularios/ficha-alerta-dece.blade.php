@@ -797,6 +797,7 @@
                     type="date"
                     class="field-input"
                     name="fecha_entrega"
+                    data-desde-hoy
                 >
 
             </td>
@@ -1473,5 +1474,6 @@ function cargarDatosServidor(datos) {
 
 </div>
 @include('formularios.partials.modo-edicion')
+@include('formularios.partials.fechas-desde-hoy')
 </body>
 </html>

@@ -4,8 +4,6 @@
         <div class="dece-header-line1">UNIDAD EDUCATIVA</div>
         <div class="dece-header-line2">&ldquo;ANGEL POLIBIO CHAVES&rdquo;</div>
         <div class="dece-header-line3">San Miguel - Provincia Bolívar - Ecuador</div>
-        @if (! empty($conDepartamento))
-            <div class="dece-header-line4">DEPARTAMENTO DE CONSEJERÍA ESTUDIANTIL</div>
-        @endif
+        <div class="dece-header-line4">DEPARTAMENTO DE CONSEJERÍA ESTUDIANTIL</div>
     </div>
 </header>

@@ -401,6 +401,9 @@
         width: 30px;
         text-align: center;
     }
+    .fecha input[type="date"] {
+        width: 100px;
+    }
 
     /* =========================
        IMPRESIÓN
@@ -643,7 +646,7 @@
 
 <div class="page">
 
-    @include('formularios.partials.encabezado-institucional', ['conDepartamento' => true])
+    @include('formularios.partials.encabezado-institucional')
 
 
     <div class="form-title">
@@ -1213,25 +1216,7 @@
 
             Fecha:
 
-            <input
-                type="text"
-                maxlength="2"
-            >
-
-            /
-
-            <input
-                type="text"
-                maxlength="2"
-            >
-
-            /
-
-            <input
-                type="text"
-                maxlength="4"
-                style="width:45px;"
-            >
+            <input type="date" data-desde-hoy>
 
         </div>
 
@@ -1714,5 +1699,6 @@ window.addEventListener(
 
 </div>
 @include('formularios.partials.modo-edicion')
+@include('formularios.partials.fechas-desde-hoy')
 </body>
 </html>

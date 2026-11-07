@@ -23,7 +23,7 @@
     top: 50%;
     width: 55px;
     height: auto;
-    margin-right: 60px;
+    margin-right: 14px;
     transform: translateY(-50%);
 }
 .dece-header-line1 {

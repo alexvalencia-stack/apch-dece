@@ -804,6 +804,7 @@
                         style="width:40%;"
                         name="fecha"
                         data-draft="true"
+                    data-desde-hoy
                     >
 
                 </td>
@@ -1542,5 +1543,6 @@ function confirmarBorrarTodo() {
 
 </div>
 @include('formularios.partials.modo-edicion')
+@include('formularios.partials.fechas-desde-hoy')
 </body>
 </html>

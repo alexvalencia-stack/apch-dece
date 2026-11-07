@@ -269,30 +269,19 @@ describe('encabezado institucional', function () {
         'plan de atención' => 'formularios.plan-atencion-psicosocial',
     ]);
 
-    it('shows the department line only on the three interview forms, with its accent', function () {
-        $conDepartamento = [
-            'formularios.entrevista-docentes',
-            'formularios.entrevista-estudiantes',
-            'formularios.entrevista-representantes',
-        ];
-        $sinDepartamento = [
-            'formularios.ficha-derivacion',
-            'formularios.ficha-observacion',
-            'formularios.consentimiento-informado',
-            'formularios.ficha-alerta-dece',
-            'formularios.plan-atencion-psicosocial',
-        ];
+    it('shows the department line, with its accent, on every form', function (string $ruta) {
+        expect(paginaDeFicha($ruta))
+            ->toContain('DEPARTAMENTO DE CONSEJERÍA ESTUDIANTIL')
+            ->not->toContain('DEPARTAMENTO DE CONSEJERIA ESTUDIANTIL');
+    })->with('fichas con encabezado');
 
-        foreach ($conDepartamento as $ruta) {
-            expect(paginaDeFicha($ruta))->toContain('DEPARTAMENTO DE CONSEJERÍA ESTUDIANTIL');
-        }
+    it('keeps the school shield close to the institution name', function (string $ruta) {
+        preg_match('/\.dece-header-text img\s*\{[^}]*margin-right:\s*(\d+)px/s', paginaDeFicha($ruta), $coincidencia);
 
-        foreach ($sinDepartamento as $ruta) {
-            expect(paginaDeFicha($ruta))
-                ->not->toContain('DEPARTAMENTO DE CONSEJERÍA ESTUDIANTIL')
-                ->not->toContain('DEPARTAMENTO DE CONSEJERIA ESTUDIANTIL');
-        }
-    });
+        expect($coincidencia)->not->toBeEmpty()
+            ->and((int) $coincidencia[1])->toBeLessThanOrEqual(16)
+            ->and((int) $coincidencia[1])->toBeGreaterThanOrEqual(8);
+    })->with('fichas con encabezado');
 
     it('uses the typography of the original DECE header', function (string $ruta) {
         $html = paginaDeFicha($ruta);
@@ -327,4 +316,59 @@ describe('encabezado institucional', function () {
             ->toMatch('/\.dece-header-text img\s*\{[^}]*position:\s*absolute[^}]*right:\s*100%/s')
             ->not->toContain('.dece-header-logo');
     })->with('fichas con encabezado');
+});
+
+describe('fechas de todas las fichas', function () {
+    dataset('todas las fichas', [
+        'derivación' => 'formularios.ficha-derivacion',
+        'observación' => 'formularios.ficha-observacion',
+        'representantes' => 'formularios.entrevista-representantes',
+        'docentes' => 'formularios.entrevista-docentes',
+        'consentimiento' => 'formularios.consentimiento-informado',
+        'alerta DECE' => 'formularios.ficha-alerta-dece',
+        'estudiantes' => 'formularios.entrevista-estudiantes',
+        'plan de atención' => 'formularios.plan-atencion-psicosocial',
+    ]);
+
+    it('blocks past dates in every calendar field', function (string $ruta) {
+        $html = paginaDeFicha($ruta);
+
+        preg_match_all('/<input\b[^>]*type="date"[^>]*>/s', $html, $calendarios);
+
+        foreach ($calendarios[0] as $calendario) {
+            expect($calendario)->toContain('data-desde-hoy');
+        }
+
+        expect($html)->toContain('function marcarFechasVacias');
+    })->with('todas las fichas');
+
+    it('hides the calendar icon and the empty-date text when printing', function (string $ruta) {
+        expect(paginaDeFicha($ruta))
+            ->toMatch('/@media print\s*\{[^@]*input\[type="date"\]::-webkit-calendar-picker-indicator\s*\{[^}]*display:\s*none/s')
+            ->toMatch('/input\[type="date"\]\.sin-fecha::-webkit-datetime-edit\s*\{[^}]*visibility:\s*hidden/s');
+    })->with('todas las fichas');
+
+    it('replaces the three loose day / month / year boxes of the footer with one calendar', function (string $ruta) {
+        $html = paginaDeFicha($ruta);
+
+        expect($html)
+            ->not->toMatch('/<input[^>]*maxlength="4"/s')
+            ->and(preg_match_all('/<input\b[^>]*type="date"[^>]*data-desde-hoy[^>]*>/s', $html))->toBe(1);
+    })->with([
+        'docentes' => 'formularios.entrevista-docentes',
+        'representantes' => 'formularios.entrevista-representantes',
+        'estudiantes' => 'formularios.entrevista-estudiantes',
+    ]);
+
+    it('names the footer date of the student interview so it is saved with the form', function () {
+        expect(paginaDeFicha('formularios.entrevista-estudiantes'))
+            ->toMatch('/<input\b[^>]*name="fecha"[^>]*type="date"|<input\b[^>]*type="date"[^>]*name="fecha"/s')
+            ->not->toContain('name="fecha_dia"');
+    });
+
+    it('does not restrict the birth date, which is in the past by nature', function () {
+        expect(paginaDeFicha('formularios.ficha-derivacion'))
+            ->toMatch('/<input\b[^>]*name="est_fecha_nac"[^>]*>/s')
+            ->not->toMatch('/<input\b[^>]*name="est_fecha_nac"[^>]*data-desde-hoy/s');
+    });
 });

@@ -506,6 +506,9 @@
         width: 26px;
         text-align: center;
     }
+    .fecha2 input[type="date"] {
+        width: 90px;
+    }
     /* =========================================================
        RESPONSIVE
        ========================================================= */
@@ -722,7 +725,7 @@
 <div class="documento">
 <!-- ==================== PÁGINA 1 ==================== -->
 <div class="page">
-    @include('formularios.partials.encabezado-institucional', ['conDepartamento' => true])
+    @include('formularios.partials.encabezado-institucional')
     <div class="form-title">
         ENTREVISTA SEMIESTRUCTURADA PARA REPRESENTANTE
     </div>
@@ -1651,11 +1654,7 @@
         </div>
         <div class="fecha2">
             Fecha:
-            <input type="text" maxlength="2">
-            /
-            <input type="text" maxlength="2">
-            /
-            <input type="text" maxlength="4" style="width:38px;">
+            <input type="date" data-desde-hoy>
         </div>
     </div>
 </div>
@@ -2067,5 +2066,6 @@ window.addEventListener(
 
 </div>
 @include('formularios.partials.modo-edicion')
+@include('formularios.partials.fechas-desde-hoy')
 </body>
 </html>
