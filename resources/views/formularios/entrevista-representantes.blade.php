@@ -1385,7 +1385,7 @@
             <th>Primeros pasos</th>
             <th>Primeras palabras</th>
             <th>Lactancia materna</th>
-            <th>Uso de bibarón</th>
+            <th>Uso de biberón</th>
             <th>Control esfínteres</th>
         </tr>
         <tr>

@@ -372,3 +372,11 @@ describe('fechas de todas las fichas', function () {
             ->not->toMatch('/<input\b[^>]*name="est_fecha_nac"[^>]*data-desde-hoy/s');
     });
 });
+
+describe('ortografía respecto a los originales del DECE', function () {
+    it('spells "biberón" correctly in the representatives interview', function () {
+        expect(paginaDeFicha('formularios.entrevista-representantes'))
+            ->toContain('biberón')
+            ->not->toContain('bibarón');
+    });
+});
