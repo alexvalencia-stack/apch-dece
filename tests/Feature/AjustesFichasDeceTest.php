@@ -188,7 +188,7 @@ describe('ficha de observación', function () {
 
     it('hides the calendar icon when printing the date fields', function () {
         foreach (['formularios.ficha-derivacion', 'formularios.ficha-observacion'] as $ruta) {
-            expect(paginaDeFicha($ruta))->toMatch('/@media print\s*\{[^}]*input\[type="date"\]::-webkit-calendar-picker-indicator\s*\{[^}]*display:\s*none/s');
+            expect(paginaDeFicha($ruta))->toMatch('/@media print\s*\{[^@]*input\[type="date"\]::-webkit-calendar-picker-indicator\s*\{[^}]*display:\s*none/s');
         }
     });
 
@@ -347,6 +347,21 @@ describe('fechas de todas las fichas', function () {
             ->toMatch('/@media print\s*\{[^@]*input\[type="date"\]::-webkit-calendar-picker-indicator\s*\{[^}]*display:\s*none/s')
             ->toMatch('/input\[type="date"\]\.sin-fecha::-webkit-datetime-edit\s*\{[^}]*visibility:\s*hidden/s');
     })->with('todas las fichas');
+
+    it('prints each date as plain dd/mm/yyyy text so it does not depend on the browser', function (string $ruta) {
+        $html = paginaDeFicha($ruta);
+
+        expect($html)
+            ->toContain('function sincronizarFechasImpresas')
+            ->toMatch('/\.fecha-impresa\s*\{[^}]*display:\s*none/s')
+            ->toMatch('/@media print\s*\{[^@]*input\[type="date"\]\s*\{[^}]*display:\s*none\s*!important/s')
+            ->toMatch('/@media print\s*\{[^@]*\.fecha-impresa\s*\{[^}]*display:\s*inline-block/s');
+    })->with('todas las fichas');
+
+    it('asks the PDF generator to refresh the printed dates before printing', function () {
+        expect(file_get_contents(base_path('scripts/generar-pdf.cjs')))
+            ->toContain('window.sincronizarFechasImpresas');
+    });
 
     it('replaces the three loose day / month / year boxes of the footer with one calendar', function (string $ruta) {
         $html = paginaDeFicha($ruta);

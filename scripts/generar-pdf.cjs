@@ -233,6 +233,10 @@ async function generarPDF() {
                 window.marcarFechasVacias();
             }
 
+            if (typeof window.sincronizarFechasImpresas === 'function') {
+                window.sincronizarFechasImpresas();
+            }
+
             if (typeof window.ajustarCamposMultilinea === 'function') {
                 window.ajustarCamposMultilinea();
             }
