@@ -336,7 +336,7 @@ describe('fechas de todas las fichas', function () {
         preg_match_all('/<input\b[^>]*type="date"[^>]*>/s', $html, $calendarios);
 
         foreach ($calendarios[0] as $calendario) {
-            expect($calendario)->toContain('data-desde-hoy');
+            expect($calendario)->toMatch('/data-desde-hoy|data-solo-pasadas/');
         }
 
         expect($html)->toContain('function marcarFechasVacias');
@@ -381,10 +381,20 @@ describe('fechas de todas las fichas', function () {
             ->not->toContain('name="fecha_dia"');
     });
 
-    it('does not restrict the birth date, which is in the past by nature', function () {
-        expect(paginaDeFicha('formularios.ficha-derivacion'))
-            ->toMatch('/<input\b[^>]*name="est_fecha_nac"[^>]*>/s')
-            ->not->toMatch('/<input\b[^>]*name="est_fecha_nac"[^>]*data-desde-hoy/s');
+    it('gives the birth date a calendar that only accepts past dates', function () {
+        $html = paginaDeFicha('formularios.ficha-derivacion');
+
+        expect($html)
+            ->toMatch('/<input\\b[^>]*type="date"[^>]*name="est_fecha_nac"[^>]*data-solo-pasadas|<input\\b[^>]*name="est_fecha_nac"[^>]*type="date"[^>]*data-solo-pasadas/s')
+            ->not->toMatch('/<input\\b[^>]*name="est_fecha_nac"[^>]*data-desde-hoy/s')
+            ->toContain('function fechaDeAyer')
+            ->toContain('campo.max = ayer');
+    });
+
+    it('lets only the birth date be a past-only calendar', function () {
+        foreach (['formularios.ficha-observacion', 'formularios.entrevista-docentes', 'formularios.consentimiento-informado'] as $ruta) {
+            expect(paginaDeFicha($ruta))->not->toMatch('/<input\\b[^>]*data-solo-pasadas/s');
+        }
     });
 });
 

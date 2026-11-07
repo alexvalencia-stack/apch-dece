@@ -1645,7 +1645,7 @@
 
             <td colspan="5">
 
-                <input type="text" name="est_fecha_nac">
+                <input type="date" name="est_fecha_nac" data-solo-pasadas>
 
             </td>
 

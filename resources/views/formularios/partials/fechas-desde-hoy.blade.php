@@ -31,6 +31,16 @@
             return ahora.getFullYear() + '-' + mes + '-' + dia;
         }
 
+        function fechaDeAyer() {
+            const ayer = new Date();
+
+            ayer.setDate(ayer.getDate() - 1);
+
+            return ayer.getFullYear()
+                + '-' + String(ayer.getMonth() + 1).padStart(2, '0')
+                + '-' + String(ayer.getDate()).padStart(2, '0');
+        }
+
         function marcarFechasVacias() {
             document.querySelectorAll('input[type="date"]').forEach(function (campo) {
                 campo.classList.toggle('sin-fecha', !campo.value);
@@ -89,6 +99,22 @@
                             campo.value = '';
                             campo.dispatchEvent(new Event('input', { bubbles: true }));
                             alert('No se puede elegir una fecha anterior a la actual.');
+                        }
+                    });
+                });
+
+            const ayer = fechaDeAyer();
+
+            document
+                .querySelectorAll('input[type="date"][data-solo-pasadas]')
+                .forEach(function (campo) {
+                    campo.max = ayer;
+
+                    campo.addEventListener('change', function () {
+                        if (campo.value && campo.value > ayer) {
+                            campo.value = '';
+                            campo.dispatchEvent(new Event('input', { bubbles: true }));
+                            alert('Solo se pueden elegir fechas pasadas.');
                         }
                     });
                 });
